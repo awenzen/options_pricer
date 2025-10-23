@@ -67,11 +67,11 @@ How to Build & Run
 
 Prerequisites:
 
-Python 3.x
+-Python 3.x
 
-conda (recommended)
+-conda (recommended)
 
-A C++17 compliant compiler (e.g., Xcode Command Line Tools on macOS)
+-A C++17 compliant compiler (e.g., Xcode Command Line Tools on macOS)
 
 1. Create & Activate Environment:
 This project requires a specific arm64 compiler on Apple Silicon.
@@ -110,6 +110,7 @@ python benchmark.py
 
 # Run the real-time simulation
 python simulate.py
+
 
 
 
