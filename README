@@ -1,0 +1,112 @@
+High-Performance C++ Options Pricer
+
+A C++/Python project demonstrating low-latency, high-throughput calculations for financial derivatives, built as a showcase for high-frequency and proprietary trading firms.
+
+This project consists of a high-performance options pricing engine written in C++ and exposed to Python using pybind11. It is designed to demonstrate C++ proficiency, an understanding of financial models, and a focus on low-latency computing.
+
+Key Features
+
+C++ Engine: All computationally-intensive math (Black-Scholes model) is written in optimized C++ (-std=c++17 with -O3 optimization) for maximum performance.
+
+Python Interface: A clean, simple Python API is exposed using pybind11, allowing for easy integration into simulation or analysis scripts.
+
+High-Throughput Design: The core C++ function calculates all Greeks (Price, Delta, Gamma, Vega, Theta) in a single pass, reusing shared calculations ($d_1$, $d_2$, $N(d_1)$) to minimize redundant computation.
+
+Tested & Validated: The C++ engine is unit-tested using pytest to prove the mathematical correctness of the calculations.
+
+🚀 Performance Benchmark
+
+The primary goal was performance. By writing the core logic in C++, the engine is capable of pricing over 3 million options per second on a single thread.
+
+This benchmark was run on an Apple M-series (arm64) laptop by pricing 1,000,000 identical contracts in a single-threaded Python loop.
+
+(options_project) adrian@dhcp33 options_pricer % python benchmark.py
+Preparing to price 1,000,000 contracts...
+Starting benchmark...
+
+--- Benchmark Complete ---
+Total time: 0.3236 seconds
+Total options priced: 1,000,000
+OPTIONS PER SECOND: 3,090,517
+--------------------------
+
+
+📈 Real-Time Simulation
+
+The simulate.py script demonstrates the engine in a mock real-time market, re-pricing a portfolio of ~5,000 unique option contracts on every market tick. Even with this full portfolio, pricing completes in just a few milliseconds.
+
+(options_project) adrian@dhcp33 options_pricer % python simulate.py
+Generating 5,000 option contracts...
+Starting real-time simulation... (Press Ctrl+C to stop)
+Stock Price: $200.05 | Priced 4,923 contracts in 12.53 ms
+Stock Price: $200.00 | Priced 4,923 contracts in 12.82 ms
+Stock Price: $199.97 | Priced 4,923 contracts in 13.57 ms
+Stock Price: $199.96 | Priced 4,921 contracts in 13.68 ms
+Stock Price: $199.98 | Priced 4,921 contracts in 12.94 ms
+Stock Price: $200.00 | Priced 4,920 contracts in 13.04 ms
+Stock Price: $200.04 | Priced 4,919 contracts in 12.82 ms
+Stock Price: $200.02 | Priced 4,917 contracts in 6.68 ms
+... (simulation continues)
+
+
+Financial Relevance: The "Greeks"
+
+This tool calculates the core risk sensitivities ("Greeks") used by market makers and options traders to manage their portfolios:
+
+Price: The theoretical value of the option.
+
+Delta: The option's sensitivity to a $1 change in the underlying stock price. Used for hedging.
+
+Gamma: The rate of change of Delta. Critical for managing the risk of a hedge.
+
+Vega: Sensitivity to a 1% change in implied volatility.
+
+Theta: Sensitivity to time decay (how much value an option loses per day).
+
+How to Build & Run
+
+Prerequisites:
+
+Python 3.x
+
+conda (recommended)
+
+A C++17 compliant compiler (e.g., Xcode Command Line Tools on macOS)
+
+1. Create & Activate Environment:
+This project requires a specific arm64 compiler on Apple Silicon.
+
+# Create a new conda environment
+conda create -n options_project python=3.11 -y
+
+# Activate it
+conda activate options_project
+
+# Install Xcode command line tools if not present
+xcode-select --install
+
+# Install pybind, pytest, and the arm64 C++ compiler from conda-forge
+conda install -c conda-forge pybind11 pytest clangxx_osx-arm64
+
+
+2. Build the C++ Module:
+This command will compile the C++ source and install it for Python.
+
+pip install . -v
+
+
+3. Run the Unit Tests:
+Verify the math is correct.
+
+pytest
+
+
+(Output should be 1 passed)
+
+4. Run the Demos:
+
+# Run the benchmark
+python benchmark.py
+
+# Run the real-time simulation
+python simulate.py
