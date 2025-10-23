@@ -6,13 +6,13 @@ This project consists of a high-performance options pricing engine written in C+
 
 Key Features
 
-C++ Engine: All computationally-intensive math (Black-Scholes model) is written in optimized C++ (-std=c++17 with -O3 optimization) for maximum performance.
+-C++ Engine: All computationally-intensive math (Black-Scholes model) is written in optimized C++ (-std=c++17 with -O3 optimization) for maximum performance.
 
-Python Interface: A clean, simple Python API is exposed using pybind11, allowing for easy integration into simulation or analysis scripts.
+-Python Interface: A clean, simple Python API is exposed using pybind11, allowing for easy integration into simulation or analysis scripts.
 
-High-Throughput Design: The core C++ function calculates all Greeks (Price, Delta, Gamma, Vega, Theta) in a single pass, reusing shared calculations ($d_1$, $d_2$, $N(d_1)$) to minimize redundant computation.
+-High-Throughput Design: The core C++ function calculates all Greeks (Price, Delta, Gamma, Vega, Theta) in a single pass, reusing shared calculations ($d_1$, $d_2$, $N(d_1)$) to minimize redundant computation.
 
-Tested & Validated: The C++ engine is unit-tested using pytest to prove the mathematical correctness of the calculations.
+-Tested & Validated: The C++ engine is unit-tested using pytest to prove the mathematical correctness of the calculations.
 
 🚀 Performance Benchmark
 
@@ -53,15 +53,15 @@ Financial Relevance: The "Greeks"
 
 This tool calculates the core risk sensitivities ("Greeks") used by market makers and options traders to manage their portfolios:
 
-Price: The theoretical value of the option.
+-Price: The theoretical value of the option.
 
-Delta: The option's sensitivity to a $1 change in the underlying stock price. Used for hedging.
+-Delta: The option's sensitivity to a $1 change in the underlying stock price. Used for hedging.
 
-Gamma: The rate of change of Delta. Critical for managing the risk of a hedge.
+-Gamma: The rate of change of Delta. Critical for managing the risk of a hedge.
 
-Vega: Sensitivity to a 1% change in implied volatility.
+-Vega: Sensitivity to a 1% change in implied volatility.
 
-Theta: Sensitivity to time decay (how much value an option loses per day).
+-Theta: Sensitivity to time decay (how much value an option loses per day).
 
 How to Build & Run
 
@@ -110,3 +110,4 @@ python benchmark.py
 
 # Run the real-time simulation
 python simulate.py
+
