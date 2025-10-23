@@ -1,4 +1,4 @@
-High-Performance C<sup>++</sup> Options Pricer
+High-Performance C++ Options Pricer
 
 A C++/Python project demonstrating low-latency, high-throughput calculations for financial derivatives, built as a showcase for high-frequency and proprietary trading firms.
 
@@ -110,5 +110,6 @@ python benchmark.py
 
 # Run the real-time simulation
 python simulate.py
+
 
 
