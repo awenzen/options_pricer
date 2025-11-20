@@ -1,0 +1,96 @@
+# High-Performance Black-Scholes Option Pricer 🚀
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![C++](https://img.shields.io/badge/C++-17-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+A high-frequency trading (HFT) style options pricing engine. This project implements the **Black-Scholes model in C++** and exposes it to Python using **pybind11**, achieving calculation speeds significantly faster than pure Python implementations.
+
+## ⚡ Key Features
+* **Hybrid Architecture:** Uses C++ for heavy mathematical lifting and Python for ease of use and data manipulation.
+* **Complete Greeks:** Calculates Delta, Gamma, Theta, Vega, and theoretical prices for Calls and Puts.
+* **High Throughput:** Capable of pricing over **3 million options per second** on standard hardware (single-threaded).
+* **Seamless Integration:** Compiles into a native Python module (`pricer_cpp`).
+
+## 🛠 Installation
+
+### Prerequisites
+* Python 3.10+
+* C++ Compiler (Clang/GCC/MSVC) supporting C++17
+* `pybind11`
+
+### Build from Source
+1.  Clone the repository:
+    ```bash
+    git clone [https://github.com/awenzen/options_pricer.git](https://github.com/awenzen/options_pricer.git)
+    cd options_pricer
+    ```
+
+2.  Install the package (compiles the C++ backend):
+    ```bash
+    pip install .
+    ```
+
+    *Alternatively, for development (builds in-place):*
+    ```bash
+    python setup.py build_ext --inplace
+    ```
+
+## 💻 Usage
+
+You can use the pricer just like a standard Python library:
+
+```python
+import pricer_cpp
+
+# Inputs: Stock Price (S), Strike (K), Time (T), Rate (r), Volatility (v)
+S, K, T, r, v = 100.0, 100.0, 1.0, 0.05, 0.20
+
+# Calculate
+greeks = pricer_cpp.calculate_greeks(S, K, T, r, v)
+
+print(f"Call Price: {greeks.call_price:.4f}")
+print(f"Call Delta: {greeks.call_delta:.4f}")
+print(f"Gamma:      {greeks.gamma:.4f}")
+
+📊 Performance Benchmarks
+Comparing this C++ implementation against a standard Python math implementation:
+Implementaion     Throughput(Options/sec)  Speedup
+Pure Python       ~40,000                  1x
+This C++ Engine   ~3,000,000               75x
+
+Benchmarks run on Macbook Pro M3Pro using benchmark.py
+
+📂 Project Structure
+├── cpp_src/
+│   ├── BlackScholes.cpp    # Core mathematical implementation
+│   ├── BlackScholes.h      # Header definitions
+│   └── wrapper.cpp         # Pybind11 Python bindings
+├── tests/
+│   └── test_pricer.py      # Unit tests (pytest)
+├── benchmark.py            # Performance testing script
+├── simulate.py             # Real-time market simulation
+└── setup.py                # Build configuration
+
+## 🚀 How to Run
+
+Once installed, you can run the various scripts included in the repo:
+
+### 1. Run Unit Tests
+Verify the math against known Black-Scholes values (from online calculators).
+```bash
+pytest tests/test_pricer.py
+
+here are the commands you need to type in your terminal right now to run everything:
+
+1.  **Build the C++ code:**
+    `python setup.py build_ext --inplace`
+2.  **Test it:**
+    `pytest`
+3.  **Check speed:**
+    `python benchmark.py`
+4.  **Watch it run:**
+    `python simulate.py`
+
+(Press Ctrl+C to stop the simulation)
+
