@@ -1,3 +1,4 @@
+README
 setup.py
 cpp_src/BlackScholes.cpp
 cpp_src/wrapper.cpp
